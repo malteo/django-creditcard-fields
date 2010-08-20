@@ -22,10 +22,14 @@ class CreditCardField(forms.CharField):
     }
 
     def clean(self, value):
+        def is_luhn_valid(cc):
+            num = map(int, cc)
+            return not sum(num[::-2] + map(lambda d: sum(divmod(d * 2, 10)), num[-2::-2])) % 10
+
         value = value.replace(' ', '').replace('-', '')
         if self.required and not value:
             raise forms.util.ValidationError(self.error_messages['required'])
-        if value and not re.match(CREDIT_CARD_RE, value):
+        if value and not (re.match(CREDIT_CARD_RE, value) and is_luhn_valid(value)):
             raise forms.util.ValidationError(self.error_messages['invalid'])
         return value
 
