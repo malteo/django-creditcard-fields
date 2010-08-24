@@ -21,6 +21,10 @@ class CreditCardField(forms.CharField):
         'invalid': _(u'The credit card number you entered is invalid.'),
     }
 
+    def __init__(self, *args, **kwargs):
+        max_length=kwargs.pop("max_length",19)
+        super(CreditCardField,self).__init__(max_length=max_length, *args, **kwargs)
+
     def clean(self, value):
         def is_luhn_valid(cc):
             num = map(int, cc)
