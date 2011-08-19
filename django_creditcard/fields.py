@@ -117,7 +117,7 @@ class VerificationValueField(forms.CharField):
     }
 
     def clean(self, value):
-        value = value.replace(' ', '')
+        value = value and value.replace(' ', '')
         if not value and self.required:
             raise forms.util.ValidationError(self.error_messages['required'])
         if value and not re.match(VERIFICATION_VALUE_RE, value):
