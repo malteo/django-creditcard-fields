@@ -6,7 +6,7 @@ validating credit card information.
 Installation
 ------------
 
-    pip install git+https://github.com/malteo/django-creditcard-fields.git
+    pip install -e git+https://github.com/malteo/django-creditcard-fields.git#egg=django-creditcard-fields
 
 
 Example usage
